@@ -62,8 +62,9 @@ jobs:
     needs: deploy-STG
     if: github.ref == 'refs/heads/develop'
     steps:
-      - uses: actions/checkout@v3
-      - name: checkout
+      - name: checkout 
+        uses: actions/checkout@v3
+      - name: smoke test
         shell: bash
         run: |
           echo 'smoke test'
