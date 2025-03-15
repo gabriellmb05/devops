@@ -37,19 +37,16 @@ jobs:
         with:
           java-version: '21'
           distribution: 'adopt'
-          package: '*jar' # Alternative distribution options are available.
-      - name: Cache SonarQube packages
+          package: '*jar' # Alternative distribution options are available.   
+      - name: Cache SonarCloud & Maven dependencies
         uses: actions/cache@v4
         with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+          path: |
+            ~/.sonar/cache
+            ~/.m2
+          key: ${{ runner.os }}-build-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
