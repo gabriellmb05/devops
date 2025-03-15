@@ -53,6 +53,7 @@ jobs:
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=devops -Dsonar.organization=gabriellmb05 -Dsonar.branch.name=${{ github.ref_name }}
 
 
+      
 
 
   build:
