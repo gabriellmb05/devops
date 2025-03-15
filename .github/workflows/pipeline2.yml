@@ -36,18 +36,15 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: cache sonarcloud packages
-      uses: actions/cache@v1
+    - name: Cache SonarCloud & Maven dependencies
+      uses: actions/cache@v4
       with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
-    - name: cache maven packages
-      uses: actions/cache@v1
-      with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        path: |
+          ~/.sonar/cache
+          ~/.m2
+        key: ${{ runner.os }}-build-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-build-
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
